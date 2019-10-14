@@ -4,13 +4,13 @@ declare module 'meteor/mongo' {
       before: {
         find(hook: (
             userId: string,
-            selector: Mongo.Selector,
+            selector: Mongo.Selector<T>,
             options: CollectionHooks.ModifierOptions
           ) => void
         ): void;
         findOne(hook: (
             userId: string,
-            selector: Mongo.Selector,
+            selector: Mongo.Selector<T>,
             options: CollectionHooks.ModifierOptions
           ) => void
         ): void;
@@ -28,15 +28,15 @@ declare module 'meteor/mongo' {
             userId: string,
             doc: T,
             fieldNames: string[],
-            modifier: Mongo.Modifier,
+            modifier: Mongo.Modifier<T>,
             options: CollectionHooks.ModifierOptions
           ) => void
         ): void;
         upsert(hook: (
             userId: string,
             doc: T,
-            selector: Mongo.Selector,
-            modifier: Mongo.Modifier,
+            selector: Mongo.Selector<T>,
+            modifier: Mongo.Modifier<T>,
             options: CollectionHooks.ModifierOptions
           ) => void
         ): void;
@@ -44,14 +44,14 @@ declare module 'meteor/mongo' {
       after: {
         find(hook: (
             userId: string,
-            selector: Mongo.Selector,
+            selector: Mongo.Selector<T>,
             options: CollectionHooks.ModifierOptions,
             cursor: Mongo.Cursor<T>
           ) => void
         ): void;
         findOne(hook: (
             userId: string,
-            selector: Mongo.Selector,
+            selector: Mongo.Selector<T>,
             options: CollectionHooks.ModifierOptions,
             doc: T
           ) => void
@@ -70,7 +70,7 @@ declare module 'meteor/mongo' {
             userId: string,
             doc: T,
             fieldNames: string[],
-            modifier: Mongo.Modifier,
+            modifier: Mongo.Modifier<T>,
             options: CollectionHooks.ModifierOptions
           ) => void,
           options?: CollectionHooks.HookOptionValue
@@ -78,14 +78,14 @@ declare module 'meteor/mongo' {
         upsert(hook: (
             userId: string,
             doc: T,
-            selector: Mongo.Selector,
-            modifier: Mongo.Modifier,
+            selector: Mongo.Selector<T>,
+            modifier: Mongo.Modifier<T>,
             options: CollectionHooks.ModifierOptions
           ) => void
         ): void;
       };
       direct: {
-        find(selector?: Mongo.Selector | Mongo.ObjectID | string, options?: {
+        find(selector?: Mongo.Selector<T> | Mongo.ObjectID | string, options?: {
           sort?: Mongo.SortSpecifier;
           skip?: number;
           limit?: number;
@@ -93,7 +93,7 @@ declare module 'meteor/mongo' {
           reactive?: boolean;
           transform?: (doc: any) => void;
         }): Mongo.Cursor<T>;
-        findOne(selector?: Mongo.Selector | Mongo.ObjectID | string, options?: {
+        findOne(selector?: Mongo.Selector<T> | Mongo.ObjectID | string, options?: {
           sort?: Mongo.SortSpecifier;
           skip?: number;
           fields?: Mongo.FieldSpecifier;
@@ -105,17 +105,17 @@ declare module 'meteor/mongo' {
           callback?: () => void
         ): string;
         remove(
-          selector: Mongo.Selector | Mongo.ObjectID | string, callback?: () => void
+          selector: Mongo.Selector<T> | Mongo.ObjectID | string, callback?: () => void
         ): number;
         update(
-          selector: Mongo.Selector | Mongo.ObjectID | string, modifier: Mongo.Modifier, options?: {
+          selector: Mongo.Selector<T> | Mongo.ObjectID | string, modifier: Mongo.Modifier<T>, options?: {
             multi?: boolean;
             upsert?: boolean;
           },
           callback?: () => void
         ): number;
         upsert(
-          selector: Mongo.Selector | Mongo.ObjectID | string, modifier: Mongo.Modifier, options?: {
+          selector: Mongo.Selector<T> | Mongo.ObjectID | string, modifier: Mongo.Modifier<T>, options?: {
             multi?: boolean;
           },
           callback?: () => void
